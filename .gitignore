@@ -160,3 +160,6 @@ cython_debug/
 #.idea/
 *.h5
 models/
+*.h5
+.DS_Store
+.DS_Store
