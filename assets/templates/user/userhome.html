@@ -2,8 +2,48 @@
 {% load static %}
 
 {% block contents %}
+<div class="container">
+    <h1>Vision Assist</h1>
+    <p class="subtitle">Intelligent Currency Recognition</p>
 
+    {% if error %}
+    <div class="error-box">
+        {{ error }}
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let text = "{{ error|escapejs }}";
+            let msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+        });
+    </script>
+    {% endif %}
 
-<h3>Home</h3>
+    {% if result %}
+    <div class="result-box">
+        {{ result }} Rupees
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let text = "You have {{ result|escapejs }} rupees note";
+            let msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+        });
+    </script>
+    {% endif %}
 
+    <a href="{% url 'userpredict' %}" class="action-button" id="scanBtn" onclick="loadingState()">
+        <span id="btnText">Tap Anywhere To Scan</span>
+    </a>
+</div>
+
+<script>
+    function loadingState() {
+        const btnText = document.getElementById('btnText');
+        const btn = document.getElementById('scanBtn');
+        btnText.innerHTML = "Scanning... Please wait";
+        btn.style.opacity = "0.8";
+        btn.style.cursor = "wait";
+    }
+</script>
 {% endblock %}

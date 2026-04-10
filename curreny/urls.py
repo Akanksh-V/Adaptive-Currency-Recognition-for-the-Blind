@@ -6,7 +6,7 @@ from curreny import views as padmin
 from user import views as usr
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',padmin.index,name='index'),
+    path('', usr.userhome, name='index'),
     path('home/', padmin.home, name='home'),
     path('userlogin/',padmin.userlogin, name='userlogin'),
     path('adminlogin/', padmin.adminlogin, name='adminlogin'),
