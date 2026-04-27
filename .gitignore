@@ -163,3 +163,15 @@ models/
 *.h5
 .DS_Store
 .DS_Store
+venv/
+dataset/
+*.h5
+*.keras
+*.pt
+*.pth
+*.zip
+*.tar
+*.mp4
+__pycache__/
+*.pyc
+db.sqlite3
