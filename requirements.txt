@@ -1,7 +1,8 @@
-pip install tensorflow==2.4.1
-pip install numpy==1.19.5
-pip install pandas==1.1.5
-pip install django==3.2
-pip install matplotlib==3.3.4
-pip install pyttsx3
-pip install opencv-python==4.5.5.64
+tensorflow==2.4.1
+numpy==1.19.5
+pandas==1.1.5
+django==3.2
+matplotlib==3.3.4
+pyttsx3
+opencv-python==4.5.5.64
+scikit-learn

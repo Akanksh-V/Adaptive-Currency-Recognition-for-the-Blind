@@ -1,37 +1,53 @@
 {% extends 'admin/adminbase.html' %}
 {% load static %}
 
+{% block title %}Registered Users — CurrencySense Admin{% endblock %}
+
 {% block contents %}
+<div class="table-section">
+    <div class="table-header enter">
+        <div class="admin-pill">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            User Management
+        </div>
+        <h2 class="t-title">Registered Users</h2>
+        <p class="t-body-sm">All users who have signed up for CurrencySense.</p>
+    </div>
 
-<br>
-
-<section id="intro">
-  <div class="intro-text">
-       <table class="table table-bordered footer_title bg-light text-dark">
-<thead>
-  <tr>
-      <th>S.No</th>
-      <th>username</th>
-      <th>email</th>
-      <th>mobileno</th>
-      <th>city</th>
-      <th>state</th>
-  </tr>
-</thead>
-<tbody>
-    {% for x in data %}
-    <tr>
-      <td>{{x.id}}</td>
-      <td>{{x.username}}</td>
-      <td>{{x.email}}</td>
-      <td>{{x.mobile}}</td>
-      <td>{{x.city}}</td>
-      <td>{{x.state}}</td>
-      </tr>
-      
-
-    {% endfor %}
-    </tbody>
-    </table>
-
+    <div class="table-wrap enter enter-d1">
+        <div class="card" style="padding:0;overflow:hidden">
+            {% if data %}
+            <table class="data-table" id="usersTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>City</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in data %}
+                    <tr>
+                        <td class="cell-muted">{{ x.id }}</td>
+                        <td class="cell-name">{{ x.username }}</td>
+                        <td>{{ x.email }}</td>
+                        <td>{{ x.mobile }}</td>
+                        <td>{{ x.city }}</td>
+                        <td>{{ x.state }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="table-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="13"/><line x1="23" y1="8" x2="18" y2="13"/></svg>
+                <p>No users registered yet.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

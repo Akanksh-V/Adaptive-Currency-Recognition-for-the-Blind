@@ -1,49 +1,84 @@
 {% extends 'user/userbase.html' %}
 {% load static %}
 
-{% block contents %}
-<div class="container">
-    <h1>Vision Assist</h1>
-    <p class="subtitle">Intelligent Currency Recognition</p>
+{% block title %}Dashboard — CurrencySense{% endblock %}
 
-    {% if error %}
-    <div class="error-box">
-        {{ error }}
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let text = "{{ error|escapejs }}";
-            let msg = new SpeechSynthesisUtterance(text);
-            window.speechSynthesis.speak(msg);
-        });
-    </script>
-    {% endif %}
+{% block contents %}
+<div class="scan-page">
 
     {% if result %}
-    <div class="result-box">
-        {{ result }} Rupees
+    <div class="result card" role="status" aria-live="polite">
+        <p class="t-overline">Currency Detected</p>
+        <div class="result-amount t-gradient">₹{{ result }}</div>
+        <div class="result-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Successfully identified
+        </div>
+        <p class="t-body-sm result-sub">The denomination has been spoken aloud.</p>
+        <a href="{% url 'userpredict' %}" class="btn btn-primary btn-primary--compact" style="margin-top:28px">Scan Again</a>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let text = "You have {{ result|escapejs }} rupees note";
-            let msg = new SpeechSynthesisUtterance(text);
-            window.speechSynthesis.speak(msg);
-        });
-    </script>
     {% endif %}
 
-    <a href="{% url 'userpredict' %}" class="action-button" id="scanBtn" onclick="loadingState()">
-        <span id="btnText">Tap Anywhere To Scan</span>
+    {% if error %}
+    <div class="error-display card" role="alert">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <h3 class="t-headline">Recognition failed</h3>
+        <p class="t-body-sm">{{ error }}</p>
+        <a href="{% url 'userpredict' %}" class="btn btn-primary btn-primary--compact" style="margin-top:28px">Try Again</a>
+    </div>
+    {% endif %}
+
+    {% if not result and not error %}
+    <a href="{% url 'userpredict' %}" class="scan-btn" id="scanCurrencyBtn" role="button" aria-label="Scan currency note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <span>Scan</span>
     </a>
+    <p class="scan-hint">Tap to identify currency</p>
+    {% endif %}
 </div>
 
+<button class="info-fab" id="infoFab" aria-label="How to use" aria-expanded="false" type="button">
+    <svg class="info-fab-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <svg class="info-fab-close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+
+<div class="info-dialog" id="infoDialog" role="dialog" aria-label="How to use" aria-hidden="true">
+    <div class="info-dialog-inner">
+        <h3 class="info-dialog-title">How to use</h3>
+        <div class="info-dialog-steps">
+            <div class="info-dialog-step">
+                <span class="info-dialog-num">1</span>
+                <p>Tap the <strong>Scan</strong> button</p>
+            </div>
+            <div class="info-dialog-step">
+                <span class="info-dialog-num">2</span>
+                <p>Point the <strong>currency note</strong> at your camera</p>
+            </div>
+            <div class="info-dialog-step">
+                <span class="info-dialog-num">3</span>
+                <p>The app will <strong>speak aloud</strong> the denomination</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="info-dialog-overlay" id="infoOverlay"></div>
+{% endblock %}
+
+{% block extra_js %}
 <script>
-    function loadingState() {
-        const btnText = document.getElementById('btnText');
-        const btn = document.getElementById('scanBtn');
-        btnText.innerHTML = "Scanning... Please wait";
-        btn.style.opacity = "0.8";
-        btn.style.cursor = "wait";
-    }
+    (function() {
+        var fab = document.getElementById('infoFab');
+        var dialog = document.getElementById('infoDialog');
+        var ovl = document.getElementById('infoOverlay');
+        function toggle() {
+            var open = dialog.classList.toggle('open');
+            fab.classList.toggle('open');
+            ovl.classList.toggle('open');
+            fab.setAttribute('aria-expanded', open);
+            dialog.setAttribute('aria-hidden', !open);
+        }
+        fab.addEventListener('click', toggle);
+        ovl.addEventListener('click', toggle);
+    })();
 </script>
 {% endblock %}

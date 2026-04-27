@@ -1,6 +1,105 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block contents %}
+{% block title %}CurrencySense — AI Currency Recognition{% endblock %}
 
+{% block contents %}
+<section class="hero">
+    <p class="t-overline hero-overline enter">AI-Powered Currency Recognition</p>
+
+    <h1 class="t-hero enter enter-d1">
+        See currency.<br>
+        <span class="t-gradient">Through sound.</span>
+    </h1>
+
+    <p class="t-body enter enter-d2">
+        Helping visually impaired individuals recognize Indian currency
+        notes with camera-based AI and real-time voice feedback.
+    </p>
+
+    <div class="hero-actions enter enter-d3">
+        <a href="{% url 'userlogin' %}" class="btn btn-primary" id="hero-get-started">
+            Get Started
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="{% url 'adminlogin' %}" class="btn btn-ghost" id="hero-admin">
+            Admin Portal
+        </a>
+    </div>
+
+    <div class="hero-stats enter enter-d4">
+        <div class="hero-stat">
+            <div class="hero-stat-value">7</div>
+            <div class="hero-stat-label">Denominations</div>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">&lt;5s</div>
+            <div class="hero-stat-label">Detection</div>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">Voice</div>
+            <div class="hero-stat-label">Output</div>
+        </div>
+    </div>
+</section>
+
+<div class="section">
+    <div class="section-header reveal">
+        <p class="t-overline">Capabilities</p>
+        <h2 class="t-display">Built for independence.</h2>
+    </div>
+
+    <div class="features-grid">
+        <div class="card feature-item feature-item--wide reveal reveal-d1">
+            <div class="feature-icon feature-icon--blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <h3 class="t-headline">Camera Recognition</h3>
+            <p class="t-body-sm">Point your camera at any Indian currency note and our deep learning model identifies the denomination instantly. No special hardware — works with any smartphone.</p>
+        </div>
+
+        <div class="card feature-item reveal reveal-d2">
+            <div class="feature-icon feature-icon--purple">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </div>
+            <h3 class="t-headline">Voice Feedback</h3>
+            <p class="t-body-sm">Hear the denomination spoken aloud — completely hands-free.</p>
+        </div>
+
+        <div class="card feature-item reveal reveal-d3">
+            <div class="feature-icon feature-icon--cyan">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3 class="t-headline">Instant Results</h3>
+            <p class="t-body-sm">Multi-frame analysis ensures confident results in under 5 seconds.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-header reveal" style="text-align:center">
+        <p class="t-overline">How it works</p>
+        <h2 class="t-display">Three simple steps.</h2>
+    </div>
+
+    <div class="process-grid">
+        <div class="process-step reveal reveal-d1">
+            <div class="process-num">01</div>
+            <h3 class="t-headline">Sign In</h3>
+            <p class="t-body-sm">Create a free account or log in to access the scanner.</p>
+        </div>
+        <div class="process-step reveal reveal-d2">
+            <div class="process-num">02</div>
+            <h3 class="t-headline">Scan</h3>
+            <p class="t-body-sm">Point your camera at any currency note and tap the button.</p>
+        </div>
+        <div class="process-step reveal reveal-d3">
+            <div class="process-num">03</div>
+            <h3 class="t-headline">Listen</h3>
+            <p class="t-body-sm">The app speaks the denomination aloud — completely hands-free.</p>
+        </div>
+    </div>
+</div>
 {% endblock %}

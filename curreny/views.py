@@ -21,9 +21,9 @@ def padminentered(request):
         if uname == 'admin' and passwd == 'admin':
             return render(request, "admin/padminentered.html")
         else:
-            messages.success(request,"invalied Credentials")
+            messages.error(request, "Invalid Credentials")
             return render(request, "admin/adminlogin.html")
-    return render(request, "padminentered.html")
+    return render(request, "admin/padminentered.html")
 
 def userview(request):
     data_list = UserModel.objects.all()

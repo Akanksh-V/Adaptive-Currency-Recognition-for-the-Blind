@@ -1,30 +1,66 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Currency Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CurrencySense admin panel — manage users and system.">
+    <title>{% block title %}Admin — CurrencySense{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
 
-<body class="background1">
-    <nav class="navbar navbar-dark navbar-expand-md bg-dark py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span>Currency Prediction</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-5">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'userview' %}">userview</a></li>
-                    <li class="nav-item"><a class="nav-link " href="{% url 'adminlogout' %}">Logout</a></li>
-                </ul>
-            </div>
+    <nav class="nav" id="mainNav" role="navigation" aria-label="Admin navigation">
+        <div class="nav-inner">
+            <a class="nav-brand" href="#">
+                <span class="nav-brand-icon" style="background:var(--admin-accent)">₹</span>
+                CurrencySense
+                <span class="nav-brand-tag">Admin</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a class="nav-link" href="{% url 'userview' %}">Users</a></li>
+                <li><a class="nav-link nav-link--danger" href="{% url 'adminlogout' %}">Logout</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
         </div>
     </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <div class="nav-spacer"></div>
+
+    <main id="main-content">
+        {% block contents %}{% endblock %}
+    </main>
+
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    {%block contents%}
-
-    {%endblock%}
+    <script>
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10), { passive: true });
+        const toggle = document.getElementById('navToggle');
+        const links = document.getElementById('navLinks');
+        const overlay = document.getElementById('navOverlay');
+        toggle.addEventListener('click', () => {
+            const open = links.classList.toggle('open');
+            overlay.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', open);
+        });
+        overlay.addEventListener('click', () => {
+            links.classList.remove('open');
+            overlay.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+        });
+    </script>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    {% block extra_js %}{% endblock %}
 </body>
-
 </html>
